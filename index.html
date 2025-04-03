@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="zh-CN">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Z-library - 官方 Z-lib中文入口. 免费下载电子书</title>
+ <meta name="keywords" content="zlibrary，zlibrary入口，zlibrary登录入口，zlibrary中文官网，zlibrary镜像网址，zlibrary数字图书馆" />
+<meta name="description" content="ZLibrary（简称"Z-Lib"）自2009年成立以来，已发展成为全球最庞大的免费数字图书馆之一，其核心使命是打破知识获取的经济壁垒。该平台由志愿者和捐赠者共同维护，截至2025年，其数据库已收录超过2300万本电子书和8480万篇学术文章，覆盖文学、科技、艺术、人文等全学科领域，支持近30种语言资源（包括中文）。">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      darkMode: `class`
+    }
+  </script>
+  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="https://jsdelivr.topthink.com/npm/chart.js"></script>
+  <style>
+    @import "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap";
+
+    :root {
+      --primary: #5e6ad2;
+      --primary-light: #8a94e0;
+      --secondary: #f5f5f7;
+      --text-primary: #1a1a1a;
+      --text-secondary: #6b7280;
+      --background: #fff;
+      --card-bg: #f9fafb;
+      --border: #e5e7eb;
+    }
+
+    .dark {
+      --primary: #8a94e0;
+      --primary-light: #5e6ad2;
+      --secondary: #1f2937;
+      --text-primary: #f9fafb;
+      --text-secondary: #9ca3af;
+      --background: #111827;
+      --card-bg: #1f2937;
+      --border: #374151;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--text-primary);
+      font-family: 'Noto Sans SC', sans-serif;
+      transition: background-color .3s, color .3s;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+
+    .card:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn {
+      transition: transform .1s, background-color .2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.02);
+    }
+
+    .fade-in {
+      animation: .8s ease-in-out fadeIn;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-title {
+      display: inline-block;
+      position: relative;
+    }
+
+    .section-title:after {
+      content: "";
+      background-color: var(--primary);
+      width: 40%;
+      height: 3px;
+      transition: width .3s;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+    }
+
+    .section-title:hover:after {
+      width: 100%;
+    }
+
+    .chart-container {
+      width: 100%;
+      height: 300px;
+      position: relative;
+    }
+
+    .progress-bar {
+      background-color: var(--primary);
+      border-radius: 4px;
+      height: 8px;
+      transition: width 1s ease-in-out;
+    }
+
+    .scroll-reveal {
+      opacity: 0;
+      transition: opacity .6s, transform .6s;
+      transform: translateY(20px);
+    }
+
+    .scroll-reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+
+  <body class="min-h-screen">
+    <header class="sticky top-0 z-50 bg-opacity-90 backdrop-blur-sm" style="background-color: var(--background)">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <i class="fas fa-book-open text-2xl" style="color: var(--primary)"></i>
+          <h1 class="text-xl font-bold">ZLibrary</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button class="p-2 rounded-full hover:bg-opacity-10 hover:bg-gray-500" id="theme-toggle">
+            <i class="fas fa-moon dark:hidden" style="color: var(--text-primary)"></i>
+            <i class="fas fa-sun hidden dark:block" style="color: var(--text-primary)"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="container mx-auto px-4 py-8 max-w-5xl">
+      <section class="mb-16 fade-in">
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">ZLibrary：全球最大的免费数字图书馆</h1>
+          <p class="text-lg" style="color: var(--text-secondary)">打破知识获取的经济壁垒，重塑数字阅读体验</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div class="card rounded-xl p-6 scroll-reveal">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: var(--primary-light)">
+                <i class="fas fa-database text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold">海量资源</h3>
+            </div>
+            <p class="mb-4">收录超过 <span class="font-bold">2300 万本电子书</span> 和 <span class="font-bold">8480 万篇学术文章</span>，覆盖全学科领域</p>
+            <div class="flex items-center">
+              <span class="text-sm px-2 py-1 rounded-full" style="background-color: var(--primary-light); color: #fff"> 全球领先 </span>
+            </div>
+          </div>
+          <div class="card rounded-xl p-6 scroll-reveal" style="animation-delay: .2s">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: var(--primary-light)">
+                <i class="fas fa-language text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold">多语言支持</h3>
+            </div>
+            <p class="mb-4">支持近 <span class="font-bold">30 种语言</span> 资源，包括简繁体中文</p>
+            <div class="flex items-center">
+              <span class="text-sm px-2 py-1 rounded-full" style="background-color: var(--primary-light); color: #fff"> 国际化 </span>
+            </div>
+          </div>
+          <div class="card rounded-xl p-6 scroll-reveal" style="animation-delay: .4s">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4" style="background-color: var(--primary-light)">
+                <i class="fas fa-users text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold">用户共创</h3>
+            </div>
+            <p class="mb-4">采用 "用户共创" 模式，允许读者上传原创作品或分享公共领域资源</p>
+            <div class="flex items-center">
+              <span class="text-sm px-2 py-1 rounded-full" style="background-color: var(--primary-light); color: #fff"> 开源精神 </span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="mb-16 scroll-reveal">
+        <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">官网与客户端入口</h2>
+        <div class="card rounded-xl p-8 mb-8">
+          <p class="mb-4">你可以通过以下按钮访问 ZLibrary 官网和下载客户端：</p>
+          <div class="flex space-x-4">
+            <a href="https://www.imi123.cn/sites/503.html" target="_blank" class="btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">官网访问入口</a>
+            <a href="https://pan.quark.cn/s/45d1c03ef62b" target="_blank" class="btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">客户端下载入口</a>
+          </div>
+        </div>
+      </section>
+      <section class="mb-16 scroll-reveal">
+        <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">一、引言：重塑知识获取方式的革命性平台</h2>
+        <div class="card rounded-xl p-8 mb-8">
+          <p class="mb-4">ZLibrary（简称 "Z-Lib"）自 2009 年成立以来，已发展成为全球最庞大的免费数字图书馆之一，其核心使命是打破知识获取的经济壁垒。该平台由志愿者和捐赠者共同维护，截至 2024 年，其数据库已收录超过 <span class="font-bold">2300 万本电子书</span> 和 <span class="font-bold">8480 万篇学术文章</span>，覆盖文学、科技、艺术、人文等全学科领域，支持近 30 种语言资源（包括中文）。</p>
+          <p class="mb-4">与传统图书馆不同，ZLibrary 采用 "用户共创" 模式，允许普通读者上传原创作品或分享公共领域资源，例如一位美国大学生曾通过平台发布个人撰写的开源编程教程，累计下载量超 10 万次。</p>
+          <p>其非营利性质与谷歌图书馆项目形成鲜明对比，用户无需支付任何费用即可享受无广告干扰的阅读体验，仅需通过捐赠或内容贡献换取高级功能。</p>
+        </div>
+      </section>
+      <section class="mb-16 scroll-reveal">
+        <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">二、发展历程：从草根项目到知识共享巨头</h2>
+        <div class="card rounded-xl p-8 mb-8">
+          <div class="relative">
+            <div class="absolute left-0 top-0 bottom-0 w-1" style="background-color: var(--primary-light)"></div>
+            <div class="relative pl-8 pb-8">
+              <div class="absolute left-0 top-0 w-6 h-6 rounded-full flex items-center justify-center" style="background-color: var(--primary)">
+                <span class="text-white text-xs">1</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">2009 年：草根起源</h3>
+              <p>最初仅为一个小型电子书共享社区，由志愿者维护。</p>
+            </div>
+            <div class="relative pl-8 pb-8">
+              <div class="absolute left-0 top-0 w-6 h-6 rounded-full flex items-center justify-center" style="background-color: var(--primary)">
+                <span class="text-white text-xs">2</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">2015 年后：指数增长</h3>
+              <p>开放用户上传功能后，资源量呈指数级增长，至 2022 年突破千万级藏书量。</p>
+            </div>
+            <div class="relative pl-8 pb-8">
+              <div class="absolute left-0 top-0 w-6 h-6 rounded-full flex items-center justify-center" style="background-color: var(--primary)">
+                <span class="text-white text-xs">3</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">2022 年：应对封锁</h3>
+              <p>美国政府查封主域名事件成为转折点，平台随即启动分布式镜像网络（如 imi123.cn、singlelogin.re），并通过 Telegram 频道 "Z-Access" 保持服务连续性。</p>
+            </div>
+            <div class="relative pl-8">
+              <div class="absolute left-0 top-0 w-6 h-6 rounded-full flex items-center justify-center" style="background-color: var(--primary)">
+                <span class="text-white text-xs">4</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">2023 年至今：分层会员体系</h3>
+              <p>引入分层会员体系，将用户分为 <span class="font-bold">游客（5 本/天）</span>、<span class="font-bold">注册会员（10 本/天）</span> 和 <span class="font-bold">捐赠会员（无限制）</span>，捐赠金额达 10 美元即可解锁云端同步、批量下载加速等功能。</p>
+              <p class="mt-2">值得关注的是，其中文用户占比从 2020 年的 12% 跃升至 2024 年的 35%，推动平台新增简繁体中文检索系统和本地化推荐算法。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="mb-16 scroll-reveal">
+        <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">三、功能特点：超越传统图书馆的数字化创新</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div class="card rounded-xl p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: var(--primary-light)">
+                <i class="fas fa-search text-white"></i>
+              </div>
+              <h3 class="text-xl font-semibold">智能检索系统</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="flex">
+                <i class="fas fa-check-circle mt-1 mr-2" style="color: var(--primary)"></i>
+                <span>支持 <span class="font-bold">"常规搜索"</span>（按标题/作者/ISBN）与 <span class="font-bold">"全文搜索"</span>（精准定位段落），例如输入《百年孤独》ISBN "9787544291170" 可直接跳转至马尔克斯作品集。</span>
+              </li>
+              <li class="flex">
+                <i class="fas fa-check-circle mt-1 mr-2" style="color: var(--primary)"></i>
+                <span>高级筛选器包含 <span class="font-bold">年份（1800 - 2025）</span>、<span class="font-bold">语言</span>（含小语种如斯瓦希里语）、<span class="font-bold">文件格式</span>（EPUB/PDF/MOBI 等），研究者可快速锁定 1900 - 1950 年间英文版心理学专著。</span>
+              </li>
+            </ul>
+          </div>
+          <div class="card rounded-xl p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: var(--primary-light)">
+                <i class="fas fa-mobile-alt text-white"></i>
+              </div>
+              <h3 class="text-xl font-semibold">多终端生态链</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="flex">
+                <i class="fas fa-check-circle mt-1 mr-2" style="color: var(--primary)"></i>
+                <span>支持 Kindle 推送、邮箱接收、Google Drive 同步，用户甚至能将《经济学人》杂志 PDF 直接发送至 iPad 的 Notability 应用批注。</span>
+              </li>
+              <li class="flex">
+                <i class="fas fa-check-circle mt-1 mr-2" style="color: var(--primary)"></i>
+                <span>独创 "Z-Access" Telegram 机器人，发送 "/search 量子力学" 即可获取最新教材。</span>
+              </li>
+            </ul>
+          </div>
+          <div class="card rounded-xl p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: var(--primary-light)">
+                <i class="fas fa-graduation-cap text-white"></i>
+              </div>
+              <h3 class="text-xl font-semibold">学术研究支持</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="flex">
+                <i class="fas fa-check-circle mt-1 mr-2" style="color: var(--primary)"></i>
+                <span>提供 <span class="font-bold">参考文献自动生成</span> 工具，选定《自然》期刊论文后可导出 APA/MLA 格式引文。</span>
+              </li>
+              <li class="flex">
+                <i class="fas fa-check-circle mt-1 mr-2" style="color: var(--primary)"></i>
+                <span>文献管理功能支持创建个人书单，例如生物系学生可将《分子克隆指南》《细胞生物学精要》归类至 "实验技术" 收藏夹。</span>
+              </li>
+            </ul>
+          </div>
+          <div class="card rounded-xl p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: var(--primary-light)">
+                <i class="fas fa-users text-white"></i>
+              </div>
+              <h3 class="text-xl font-semibold">社群互动网络</h3>
+            </div>
+            <ul class="space-y-3">
+              <li class="flex">
+                <i class="fas fa-check-circle mt-1 mr-2" style="color: var(--primary)"></i>
+                <span>用户可对书籍进行 <span class="font-bold">豆瓣式评分</span>，某位历史爱好者对《枪炮、病菌与钢铁》的深度书评累计获得 3000 次点赞。</span>
+              </li>
+              <li class="flex">
+                <i class="fas fa-check-circle mt-1 mr-2" style="color: var(--primary)"></i>
+                <span>开放 "知识众筹" 板块，2024 年成功众筹翻译《剑桥中世纪史》阿拉伯语版本。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="mb-16 scroll-reveal">
+        <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">四、使用指南：从新手到高阶用户的进阶路径</h2>
+        <div class="card rounded-xl p-8 mb-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <i class="fas fa-map-signs mr-2" style="color: var(--primary)"></i>
+                基础访问流程
+              </h3>
+              <div class="space-y-4">
+                <div class="p-4 rounded-lg" style="background-color: var(--secondary)">
+                  <h4 class="font-medium mb-2">镜像选择</h4>
+                  <p>优先访问抗封锁能力强的 singlelogin.re 或通过必应搜索爱米导航 "www.imi123.cn" 获取最新域名。</p>
+                </div>
+                <div class="p-4 rounded-lg" style="background-color: var(--secondary)">
+                  <h4 class="font-medium mb-2">快速下载</h4>
+                  <p>未注册用户输入《三体》书名，5 秒内可完成 PDF 下载（限 5 本/天）。</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <i class="fas fa-key mr-2" style="color: var(--primary)"></i>
+                会员特权解锁
+              </h3>
+              <div class="space-y-4">
+                <div class="p-4 rounded-lg" style="background-color: var(--secondary)">
+                  <h4 class="font-medium mb-2">捐赠升级</h4>
+                  <p>支付 10 美元后，每日下载上限解除，且 1GB 的《大英百科全书》PDF 下载时间从 15 分钟缩短至 3 分钟。</p>
+                </div>
+                <div class="p-4 rounded-lg" style="background-color: var(--secondary)">
+                  <h4 class="font-medium mb-2">学术加速包</h4>
+                  <p>捐赠会员可申请优先索引服务，例如提前获取《柳叶刀》预印本论文。</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <i class="fas fa-shield-alt mr-2" style="color: var(--primary)"></i>
+                风险规避策略
+              </h3>
+              <div class="space-y-4">
+                <div class="p-4 rounded-lg" style="background-color: var(--secondary)">
+                  <h4 class="font-medium mb-2">加密邮箱</h4>
+                  <p>使用 ProtonMail 等加密邮箱注册，避免主流服务商拦截验证邮件。</p>
+                </div>
+                <div class="p-4 rounded-lg" style="background-color: var(--secondary)">
+                  <h4 class="font-medium mb-2">Tor 浏览器</h4>
+                  <p>通过 Tor 浏览器访问.onion镜像，实现完全匿名下载。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="mb-16 scroll-reveal">
+        <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">五、争议与未来：知识平权运动的双刃剑</h2>
+        <div class="card rounded-xl p-8 mb-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <p class="mb-4">尽管 ZLibrary 因版权问题屡遭诉讼，但其 2024 年推出的 "创作者基金" 试图平衡各方利益：用户下载受版权保护作品时，平台自动从捐赠池中分配 0.1 美元给原作者。</p>
+              <p>与此同时，牛津大学研究显示，发展中国家医学生通过 ZLibrary 获取教材的比例高达 67%，显著降低教育不平等。</p>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4">未来展望</h3>
+              <p class="mb-4">未来，平台计划整合区块链技术，实现资源溯源与版权自动化结算，这或将成为数字出版业的颠覆性创新。</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="mb-16 scroll-reveal">
+        <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">资源分布统计</h2>
+        <div class="card rounded-xl p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-xl font-semibold mb-4">资源类型分布</h3>
+              <div class="chart-container">
+                <canvas id="resourceChart"></canvas>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4">用户下载趋势</h3>
+              <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="py-8 border-t" style="border-color: var(--border)">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <p class="text-sm" style="color: var(--text-secondary)">觉得很不错？那就按住Ctrl+D键组合，把本网站加入你的浏览器收藏夹吧！</p>
+          </div>
+          <div class="flex items-center">
+            <span class="text-sm font-medium mr-2" style="color: var(--text-secondary)">爱米导航网</span>
+            <span class="font-bold" style="color: var(--primary)">© 2025 ZLibrary数字图书馆</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const themeToggle = document.getElementById(`theme-toggle`);
+      if (window.matchMedia && window.matchMedia(`(prefers-color-scheme: dark)`).matches) {
+        document.documentElement.classList.add(`dark`);
+      }
+      themeToggle.addEventListener(`click`, () => {
+        document.documentElement.classList.toggle(`dark`);
+      });
+      const scrollRevealElements = document.querySelectorAll(`.scroll-reveal`);
+      const revealOnScroll = () => {
+        for (let a = 0; a < scrollRevealElements.length; a++) {
+          const b = scrollRevealElements[a].getBoundingClientRect().top;
+          const c = window.innerHeight;
+          if (b < c - 100) {
+            scrollRevealElements[a].classList.add(`active`);
+          }
+        }
+      };
+      window.addEventListener(`scroll`, revealOnScroll);
+      window.addEventListener(`load`, revealOnScroll);
+      const ctxResource = document.getElementById(`resourceChart`).getContext(`2d`);
+      const resourceChart = new Chart(ctxResource, {
+        type: `pie`,
+        data: {
+          labels: [`电子书`, `学术文章`, `其他资源`],
+          datasets: [{
+            data: [800, 8400, 200],
+            backgroundColor: [
+              `rgba(94, 106, 210, 0.8)`,
+              `rgba(94, 106, 210, 0.6)`,
+              `rgba(94, 106, 210, 0.4)`
+            ],
+            borderColor: [
+              `rgba(94, 106, 210, 1)`,
+              `rgba(94, 106, 210, 0.8)`,
+              `rgba(94, 106, 210, 0.6)`
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: `bottom`,
+              labels: {
+                padding: 20,
+                font: {
+                  size: 12
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (a => {
+                  let b = a.label || ``;
+                  if (b) {
+                    b += `: `;
+                  }
+                  if (a.parsed.r) {
+                    b += a.formattedValue;
+                  }
+                  return b;
+                })
+              }
+            }
+          }
+        }
+      });
+      const ctxTrend = document.getElementById(`trendChart`).getContext(`2d`);
+      const trendChart = new Chart(ctxTrend, {
+        type: `line`,
+        data: {
+          labels: [`2020`, `2021`, `2022`, `2023`, `2024`],
+          datasets: [{
+            label: `日均下载量(万次)`,
+            data: [12, 18, 25, 32, 40],
+            fill: false,
+            borderColor: `rgba(94, 106, 210, 1)`,
+            tension: 0.4,
+            pointBackgroundColor: `rgba(94, 106, 210, 1)`,
+            pointRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: (a => a + `万`)
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              position: `top`
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
+    
